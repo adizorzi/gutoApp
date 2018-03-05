@@ -26,14 +26,15 @@ public class ImagemAdapter extends RecyclerView.Adapter<ImagemAdapter.ViewHorder
 
     private List<Imagens> dados;
     private Context context;
-    public  List<Integer> listaSelecionados=new ArrayList<>();
     public List<Imagens> listImg = new ArrayList<>();
     public MainActivity activity;
+    private PreFraseAdapter preFraseAdapter;
 
-    public ImagemAdapter(List<Imagens> dados, Context context, MainActivity activity) {
+    public ImagemAdapter(List<Imagens> dados, Context context, MainActivity activity, PreFraseAdapter preFraseAdapter) {
         this.dados = dados;
         this.context = context;
         this.activity = activity;
+        this.preFraseAdapter = preFraseAdapter;
     }
 
     public void setDados(List<Imagens> dados){
@@ -56,7 +57,6 @@ public class ImagemAdapter extends RecyclerView.Adapter<ImagemAdapter.ViewHorder
     public void onBindViewHolder(final ImagemAdapter.ViewHorderImagem holder, final int position) {
 
         Resources resources = context.getResources();
-//        final int resourceId = resources.getIdentifier(dados.get(position).imgimagem, "drawable",
         final int resourceId = resources.getIdentifier(dados.get(position).imgimagem, "drawable",
                 context.getPackageName());
 
@@ -67,15 +67,19 @@ public class ImagemAdapter extends RecyclerView.Adapter<ImagemAdapter.ViewHorder
             public void onClick(View v) {
 
                 Imagens img = dados.get(position);
-                if(holder.imgSelected.getVisibility() == View.VISIBLE){
-                    holder.imgSelected.setVisibility(View.INVISIBLE);
-                    listaSelecionados.remove(dados.get(position).imgid);
-                    listImg.remove(new Imagens(img.imgid, img.imgimagem, img.imgdescricao, img.imgimgid));
-                } else {
-                    holder.imgSelected.setVisibility(View.VISIBLE);
-                    listaSelecionados.add(dados.get(position).imgid);
-                    listImg.add(new Imagens(img.imgid, img.imgimagem, img.imgdescricao, img.imgimgid));
-                }
+//                if(holder.imgSelected.getVisibility() == View.VISIBLE){
+//                    holder.imgSelected.setVisibility(View.INVISIBLE);
+//                    listImg.remove(img);
+//                    preFraseAdapter.setDados(listImg);
+//                    preFraseAdapter.notifyDataSetChanged();
+
+//                } else {
+//                    holder.imgSelected.setVisibility(View.VISIBLE);
+                    listImg.add(img);
+                    preFraseAdapter.setDados(listImg);
+                    preFraseAdapter.notifyDataSetChanged();
+
+//                }
             }
         });
         activity.fab.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +90,7 @@ public class ImagemAdapter extends RecyclerView.Adapter<ImagemAdapter.ViewHorder
                 bundle.putSerializable("listaImg", (Serializable) listImg);
                 intent.putExtras(bundle);
                 context.startActivity(intent);
+                listImg = new ArrayList<>();
             }
         });
     }

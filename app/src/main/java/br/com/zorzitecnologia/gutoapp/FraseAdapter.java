@@ -21,7 +21,7 @@ public class FraseAdapter extends RecyclerView.Adapter<FraseAdapter.ViewHorderFr
     private List<Imagens> dados;
     private Context context;
 
-    public FraseAdapter(List<Imagens> dados, Context context) {
+    public FraseAdapter(List<Imagens> dados, Context applicationContext, Context context) {
         this.dados = dados;
         this.context = context;
     }
@@ -44,14 +44,17 @@ public class FraseAdapter extends RecyclerView.Adapter<FraseAdapter.ViewHorderFr
     @Override
     public void onBindViewHolder(FraseAdapter.ViewHorderFrase holder, int position) {
         Resources resources = context.getResources();
-        final  int resourceId = resources.getIdentifier(dados.get(position).imgimagem, "drawable", context.getPackageCodePath());
+//        final  int resourceId = resources.getIdentifier(dados.get(position).imgimagem, "drawable", context.getPackageCodePath());
+        final int resourceId = resources.getIdentifier(dados.get(position).imgimagem, "drawable",
+                context.getPackageName());
 
         holder.txtTituloFrase.setText(dados.get(position).imgdescricao);
+        holder.imgFrase.setImageDrawable(resources.getDrawable(resourceId));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dados.size();
     }
 
     public class ViewHorderFrase extends RecyclerView.ViewHolder {
@@ -62,7 +65,7 @@ public class FraseAdapter extends RecyclerView.Adapter<FraseAdapter.ViewHorderFr
         public ViewHorderFrase(View itemView) {
             super(itemView);
             txtTituloFrase= itemView.findViewById(R.id.txtTituloFrase);
-            imgFrase = itemView.findViewById(R.id.imgLista);
+            imgFrase = itemView.findViewById(R.id.imgFrase);
         }
     }
 }

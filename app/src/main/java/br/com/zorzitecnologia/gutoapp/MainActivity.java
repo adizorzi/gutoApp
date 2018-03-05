@@ -32,8 +32,11 @@ import br.com.zorzitecnologia.gutoapp.entidades.ImagensRepositorio;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView lstDados;
+    private RecyclerView preFraseDados;
+    public List<Imagens> lstSelecionados = new ArrayList<>() ;
     private SQLiteDatabase conexao;
     private ConstraintLayout layoutContentMain;
+    private PreFraseAdapter preFraseAdapter;
 
     private DadosOpenHelper dadosOpenHelper;
     private ImagensRepositorio imagensRepositorio;
@@ -63,18 +66,27 @@ public class MainActivity extends AppCompatActivity
 
         List<Imagens> dados = imagensRepositorio.buscarClasses();
 
-        imagemAdapter = new ImagemAdapter(dados, getApplicationContext(), this);
+        Intent i = getIntent();
+        preFraseDados = (RecyclerView) findViewById(R.id.lstPreFrase);
+        preFraseDados.setHasFixedSize(true);
+
+        LinearLayoutManager linearLayoutManagerPrefraze = new LinearLayoutManager(this);
+        preFraseDados.setLayoutManager(new GridLayoutManager(this, 4));
+
+        if (lstSelecionados != null) {
+            preFraseAdapter = new PreFraseAdapter(lstSelecionados, getApplicationContext(), this);
+            preFraseDados.setAdapter(preFraseAdapter);
+
+        }
+
+        imagemAdapter = new ImagemAdapter(dados, getApplicationContext(), this, preFraseAdapter);
+        lstDados.setAdapter(imagemAdapter);
+
+
         lstDados.setAdapter(imagemAdapter);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MostrarFraseActivity.class);
-                i.putIntegerArrayListExtra("idsImg", (ArrayList<Integer>) imagemAdapter.listaSelecionados);
-                getApplicationContext().startActivity(i);
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -127,7 +139,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             List<Imagens> dados = imagensRepositorio.buscaCategoriaImg(1);
             imagemAdapter.setDados(dados);
-           // getListImg()
             imagemAdapter.notifyDataSetChanged();
         } else if (id == R.id.nav_gallery) {
             List<Imagens> dados = imagensRepositorio.buscaCategoriaImg(2);
@@ -145,6 +156,10 @@ public class MainActivity extends AppCompatActivity
             List<Imagens> dados = imagensRepositorio.buscaCategoriaImg(5);
             imagemAdapter.setDados(dados);
             imagemAdapter.notifyDataSetChanged();
+        }else if (id == R.id.nav_todos) {
+            List<Imagens> dados = imagensRepositorio.buscarClasses();
+            imagemAdapter.setDados(dados);
+            imagemAdapter.notifyDataSetChanged();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -155,7 +170,6 @@ public class MainActivity extends AppCompatActivity
         try {
             dadosOpenHelper = new DadosOpenHelper(this);
             conexao = dadosOpenHelper.getWritableDatabase();
-            Toast.makeText(getApplicationContext(), "Conexão criada com sucesso", Toast.LENGTH_SHORT).show();
 
         }catch (SQLException ex){
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);

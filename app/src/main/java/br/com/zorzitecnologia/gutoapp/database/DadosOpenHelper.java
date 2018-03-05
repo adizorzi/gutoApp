@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class DadosOpenHelper extends SQLiteOpenHelper{
-    public DadosOpenHelper(Context context) { super(context, "DADOS", null, 2 );}
+    public DadosOpenHelper(Context context) { super(context, "DADOS", null, 7);}
 
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(ScriptDLL.getCreateTableImagens());

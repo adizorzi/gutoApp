@@ -24,5 +24,9 @@
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_menu_share"
             android:title="Sentimentos" />
+        <item
+            android:id="@+id/nav_todos"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Todos" />
     </group>
 </menu>

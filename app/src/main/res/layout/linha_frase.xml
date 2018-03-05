@@ -2,12 +2,12 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linhaImagens"
+    android:id="@+id/linhaFrase"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:id="@+id/linhaFrase"
+        android:id="@+id/fraseLista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,19 +30,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></ImageView>
 
+        <TextView
+            android:id="@+id/txtTituloFrase"
+            android:layout_width="wrap_content"
+            android:layout_height="21dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/background_dark"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgLista"
+            app:layout_constraintEnd_toEndOf="@+id/imgLista"
+            app:layout_constraintStart_toStartOf="@+id/imgLista"
+            tools:text="asdfasdf" />
+
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/txtTituloFrase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:textColor="@android:color/background_dark"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgLista"
-        app:layout_constraintEnd_toEndOf="@+id/imgLista"
-        app:layout_constraintStart_toStartOf="@+id/imgLista" />
 </android.support.constraint.ConstraintLayout>
