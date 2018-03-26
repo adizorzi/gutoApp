@@ -6,4 +6,9 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_mostrar_frase">Frase gerada</string>
+    <string name="action_camera">Câmera</string>
+    <string name="btn_salvar">Salvar</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="txt_descricao_img">Descrição</string>
+    <string name="action_galeria">Galeria</string>
 </resources>

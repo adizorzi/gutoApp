@@ -3,7 +3,9 @@ package br.com.zorzitecnologia.gutoapp;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -28,6 +31,8 @@ import java.util.List;
 import br.com.zorzitecnologia.gutoapp.database.DadosOpenHelper;
 import br.com.zorzitecnologia.gutoapp.entidades.Imagens;
 import br.com.zorzitecnologia.gutoapp.entidades.ImagensRepositorio;
+
+import static android.media.MediaRecorder.VideoSource.CAMERA;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity
     private ImagensRepositorio imagensRepositorio;
     private ImagemAdapter imagemAdapter;
     public FloatingActionButton fab = null;
+    private ImageView imagem;
 
 
     @Override
@@ -50,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        imagem = (ImageView) findViewById(R.id.imgNovoCadastro);
 
         lstDados = (RecyclerView)findViewById(R.id.lstDados);
 
@@ -123,9 +130,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_camera){
+//            Intent intent = new Intent(this, CadastroImgActivity.class);
+//            intent.putExtra("camera",true);
+//            startActivity(intent);
+//        }else if(id == R.id.action_galeria) {
+//            Intent intent = new Intent(this, CadastroImgActivity.class);
+//            intent.putExtra("camera",false);
+//            startActivity(intent);
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -179,4 +192,6 @@ public class MainActivity extends AppCompatActivity
             dlg.show();
         }
     }
+
+
 }

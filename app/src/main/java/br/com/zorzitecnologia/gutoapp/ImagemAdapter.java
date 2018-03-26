@@ -67,14 +67,6 @@ public class ImagemAdapter extends RecyclerView.Adapter<ImagemAdapter.ViewHorder
             public void onClick(View v) {
 
                 Imagens img = dados.get(position);
-//                if(holder.imgSelected.getVisibility() == View.VISIBLE){
-//                    holder.imgSelected.setVisibility(View.INVISIBLE);
-//                    listImg.remove(img);
-//                    preFraseAdapter.setDados(listImg);
-//                    preFraseAdapter.notifyDataSetChanged();
-
-//                } else {
-//                    holder.imgSelected.setVisibility(View.VISIBLE);
                     listImg.add(img);
                     preFraseAdapter.setDados(listImg);
                     preFraseAdapter.notifyDataSetChanged();
